@@ -51,13 +51,13 @@ atm=new ATM();
 Label validationLabel =new Label();
 	TextField idField=new TextField();
 PasswordField passwordField =new PasswordField();
-Button sumbit =new Button("Sumbit");
+Button submit =new Button("Submit");
 GridPane gridLogin =new GridPane();
 gridLogin.add(idnumLabel, 0, 0);
 gridLogin.add(passwordLabel, 0, 1);
 gridLogin.add(idField, 1, 0);
 gridLogin.add(passwordField, 1, 1);
-gridLogin.add(sumbit, 2, 3);
+gridLogin.add(submit, 2, 3);
 gridLogin.add(validationLabel,1,2);
 gridLogin.setAlignment(Pos.CENTER);
 
@@ -94,7 +94,7 @@ Scene OperationScreenScene =new Scene(OperationScreengrid,400,300);
 primaryStage.setTitle("ATM");	
 Label amount=new Label(" Amount:");
 TextField amountField=new TextField();
-Button confirm =new Button("Sumbit");
+Button confirm =new Button("Submit");
 Button back=new Button("Back");
 
 Label validationLabel1 =new Label();
@@ -119,7 +119,7 @@ Scene DepositScreenScene =new Scene(DepositScreengrid,600,300);
 primaryStage.setTitle("ATM");	
 Label amount1=new Label(" Amount:");
 TextField amountField1=new TextField();
-Button confirm1 =new Button("Sumbit");
+Button confirm1 =new Button("Submit");
 Button back1=new Button("Back");
 
 Label validationLabel2 =new Label();
@@ -158,7 +158,7 @@ Scene BalanceScreenScene =new Scene(BalanceScreengrid,400,300);
 //end.........................................................................................
 primaryStage.setScene(sceneLogin);
 	primaryStage.show();
-sumbit.setOnAction(new EventHandler<ActionEvent>() { 
+	submit.setOnAction(new EventHandler<ActionEvent>() { 
 	public void handle(ActionEvent event) {
 	
 	String IdNum=idField.getText();	
@@ -177,7 +177,8 @@ sumbit.setOnAction(new EventHandler<ActionEvent>() {
 		{ public void handle(ActionEvent event) {
 			primaryStage.setScene(OperationScreenScene);
 			history1.setText("");
-		
+			x=-1;
+
 		}});
 		confirm.setOnAction(new EventHandler<ActionEvent>() 
 		{ public void handle(ActionEvent event) {
@@ -194,7 +195,7 @@ validationLabel1.setText("");
 			else if(valid1) {int am=Integer.parseInt(a);//amount int
 			if(am==0) {validationLabel1.setText("Error,Enter a valid amount");}
 			else
-			if (am < 50 && (am % 10 > 0))
+			if ((am % 5 > 0))
 			{validationLabel1.setText("Error,Enter a valid amount");
 			
 		} else {validationLabel1.setText("");
@@ -202,14 +203,14 @@ validationLabel1.setText("");
 			sa=atm.Deposit(am);
 			String s;//balance string
 			s= String.valueOf(sa);
-   ++i; 
-   if(i==5) {for(i=4;i>1;i--){history[i-1]=history[i];type[i-1]=type[i];}i=4;}
+			++i; 
+			   if(i==5) {for(i=0;i<=3;i++){history[i]=history[i+1];type[i]=type[i+1];}i=4;}
 
 type[i]="Deposit";
 history[i]=a;
 
 
-balance.setText("balance:"+s);
+balance.setText("Balance:"+s);
 			amountDeposit.setText("Amount deposited:"+a);
 
 			}}
@@ -236,6 +237,8 @@ balance.setText("balance:"+s);
 		{ public void handle(ActionEvent event) {
 			primaryStage.setScene(OperationScreenScene);
 			history1.setText("");
+			x=-1;
+
 		}});
 		confirm1.setOnAction(new EventHandler<ActionEvent>() 
 		{ public void handle(ActionEvent event) {		
@@ -250,7 +253,7 @@ balance.setText("balance:"+s);
 			else if(valid1) {int am=Integer.parseInt(a1);
 			if(am==0) {validationLabel2.setText("Error,Enter a valid amount");}
 			else
-			if ((am>atm.getCurrentBalance())||(am < 50 && (am % 10 > 0))) 
+			if ((am>atm.getCurrentBalance())||( (am % 5 > 0))) 
 			{validationLabel2.setText("Error,Enter a valid amount");
 			
 		} else {
@@ -258,12 +261,12 @@ balance.setText("balance:"+s);
 			sa=atm.Withdraw(am);
 			String s;
 			s= String.valueOf(sa);
-			 ++i; 
-			   if(i==5) {for(i=4;i>1;i--){history[i-1]=history[i];type[i-1]=type[i];}i=4;}
-			
+			++i; 
+			   if(i==5) {for(i=0;i<=3;i++){history[i]=history[i+1];type[i]=type[i+1];}i=4;}
+
 			type[i]="Withdraw";
 			history[i]=a1;
-			balance1.setText("balance:"+s);
+			balance1.setText("Balance:"+s);
 			amountWithdraw.setText("Amount withdrew:"+a1);
 					
 
@@ -287,7 +290,7 @@ balance.setText("balance:"+s);
 		{primaryStage.setScene(BalanceScreenScene);			
 		Balance.setText(" CurrentBalance: "+(String.valueOf((atm.getCurrentBalance()))));
 		 ++i; 
-		   if(i==5) {for(i=4;i>1;i--){history[i-1]=history[i];type[i-1]=type[i];}i=4;}
+		   if(i==5) {for(i=0;i<=3;i++){history[i]=history[i+1];type[i]=type[i+1];}i=4;}
 
 		type[i]="BalanceInquiry";
 		history[i]=String.valueOf((atm.getCurrentBalance()));
@@ -296,7 +299,7 @@ balance.setText("balance:"+s);
 		{ public void handle(ActionEvent event) {
 			primaryStage.setScene(OperationScreenScene);
 			history1.setText("");
-	
+	x=-1;
 			
 		}});
 		}});
